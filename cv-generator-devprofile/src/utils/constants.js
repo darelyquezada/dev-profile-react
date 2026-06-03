@@ -37,3 +37,18 @@ export const QUICK_ACCESS_LINKS = [
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/about', label: 'About' },
 ];
+
+/* Editor Page Constants */
+
+/*
+ Static configuration for the editor view tab navigation links.
+ Defines unique identifiers, display names, and design system counter indices.
+*/
+
+export const EDITOR_TABS = [
+  { id: 'personal', label: 'Personal', index: '01' },
+  { id: 'skills', label: 'Skills', index: '02' },
+  { id: 'projects', label: 'Projects', index: '03' },
+  { id: 'education', label: 'Education', index: '04' },
+  { id: 'extra', label: 'Experience', index: '05' },
+];
