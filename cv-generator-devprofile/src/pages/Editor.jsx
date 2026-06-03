@@ -1,3 +1,4 @@
+// src/pages/Editor.jsx
 import { useCV } from '../context/CVContext';
 import { useEditorTabs } from '../hooks/useEditorTabs';
 import { EDITOR_TABS } from '../utils/constants';
@@ -8,6 +9,7 @@ import ProjectForm from '../components/ProjectForm';
 import ProjectCard from '../components/ProjectCard';
 import EducationForm from '../components/EducationForm';
 import ExtraInfoForm from '../components/ExtraInfoForm';
+import { useNavigate } from 'react-router-dom'; 
 
 export default function Editor() {
   // Encapsulating view-state management hooks to isolate dynamic interactive states
@@ -22,6 +24,9 @@ export default function Editor() {
 
   // Extracting live centralized data models directly from context provider boundaries
   const { cv } = useCV();
+
+  // Initializing the application route dispatcher hook
+  const navigate = useNavigate();
 
   return (
     <main className="page-wrapper">
@@ -138,10 +143,10 @@ export default function Editor() {
 
           {/* Extra Info / Professional Experience Module */}
           {activeTab === 'extra' && <ExtraInfoForm />}
+          
         </div>
 
-        {/* Bottom nav hint */}
-        {/* Mirror indicator layout reporting immediate synchronization context to users */}
+        {/* Bottom Navigation Utilities */}
         <div
           style={{
             marginTop: '3rem', paddingTop: '1.5rem',
@@ -149,9 +154,24 @@ export default function Editor() {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           }}
         >
-          <span className="label">
-            {cv.personal.name ? `Editing: ${cv.personal.name}` : 'No name set yet'}
-          </span>
+          {/* Redirects operational control directly to the master layout Preview workspace via App Router */}
+          <button 
+            className="btn btn-secondary" 
+            onClick={() => navigate('/preview')} // Navbar route path
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.5rem',
+              fontSize: '0.8rem',
+              fontFamily: 'var(--font-mono)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
+            }}
+          >
+            <span>View Preview</span>
+            <span style={{ fontSize: '1rem' }}>→</span>
+          </button>
+
           <div style={{ display: 'flex', gap: '0.75rem' }}>
             {/* Linear pagination dots tracking alternative layout entries */}
             {EDITOR_TABS.map((tab) => {

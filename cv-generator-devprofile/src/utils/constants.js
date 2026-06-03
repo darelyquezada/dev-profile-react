@@ -52,3 +52,26 @@ export const EDITOR_TABS = [
   { id: 'education', label: 'Education', index: '04' },
   { id: 'extra', label: 'Experience', index: '05' },
 ];
+
+/* useFormValidation Constants */
+
+/*
+ Storage configuration constants for the draft persistence layer.
+ Centralizes the Unique LocalStorage Namespace Keys.
+*/
+
+export const LOCAL_STORAGE_KEYS = {
+  PERSONAL_DRAFT: 'devprofile_personal_draft',
+  SKILLS_DRAFT: 'devprofile_skills_draft',
+  PROJECTS_DRAFT: 'devprofile_projects_draft',
+  EDUCATION_DRAFT: 'devprofile_education_draft',
+  EXTRA_DRAFT: 'devprofile_extra_draft',
+};
+
+/* UI Mapping weights for skill proficiency classification calculations */
+export const LEVEL_VALUES = { 
+  Basic: 25, 
+  Intermediate: 50, 
+  Advanced: 75, 
+  Expert: 100 
+};
