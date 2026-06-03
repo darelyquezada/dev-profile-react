@@ -14,3 +14,21 @@ export const validatePersonalForm = (form) => {
   });
   return e;
 };
+
+export const validateProjectForm = (form, editTarget, existingProjects) => {
+  const e = {};
+  if (!form.name.trim()) e.name = 'Project name is required';
+  if (form.name.length > 80) e.name = 'Name must be under 80 characters';
+  
+  if (!editTarget) {
+    const dup = existingProjects.some((p) => p.name.trim().toLowerCase() === form.name.trim().toLowerCase());
+    if (dup) e.name = 'A project with this name already exists';
+  }
+  
+  if (!form.description.trim()) e.description = 'Description is required';
+  if (form.description.length > 400) e.description = 'Max 400 characters';
+  if (form.repoUrl && !URL_REGEX.test(form.repoUrl)) e.repoUrl = 'Must be a valid URL (https://...)';
+  if (form.deployUrl && !URL_REGEX.test(form.deployUrl)) e.deployUrl = 'Must be a valid URL (https://...)';
+  if (form.image && !URL_REGEX.test(form.image)) e.image = 'Must be a valid URL (https://...)';
+  return e;
+};

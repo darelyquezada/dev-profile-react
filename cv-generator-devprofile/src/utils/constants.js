@@ -75,3 +75,14 @@ export const LEVEL_VALUES = {
   Advanced: 75, 
   Expert: 100 
 };
+
+/* Project Form Constants */
+
+export const EMPTY_PROJECT = {
+  name: '',
+  description: '',
+  technologies: '',
+  repoUrl: '',
+  deployUrl: '',
+  image: '',
+};

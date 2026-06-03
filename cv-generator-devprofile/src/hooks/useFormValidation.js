@@ -10,45 +10,45 @@ import {
   validateExtraInfoForm
 } from '../utils/validations';
 
-/* Baseline schema structure defining an empty contact or professional dynamic hyperlink node */
+/* Empty link structure for contact and professional social networks */
 const EMPTY_LINK = { label: '', url: '' };
 
-/* Orchestrates real-time state mutation tracking for core identities and multi-link dynamic arrays */
+/* Manages form state, validation, and local storage for personal information */
 export function usePersonalHook() {
   const { cv, updatePersonal } = useCV();
   
-  // Utilizing the centralized storage key constant for the personal draft context
+  // Saves the personal form data draft in local storage using the central key
   const [storedData, setStoredData] = useLocalStorage(LOCAL_STORAGE_KEYS.PERSONAL_DRAFT, cv.personal);
   const [form, setForm] = useState(storedData);
   const [errors, setErrors] = useState({});
   const [saved, setSaved] = useState(false);
 
-  // Synchronizing component state changes back into the local storage layer reactively
+  // Automatically syncs form state changes to local storage
   useEffect(() => {
     setStoredData(form);
   }, [form, setStoredData]);
 
-  /* Modifies a top-level schema field value and flushes any legacy validation errors attached to it */
+  /* Changes a form field value and clears its validation error */
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
     setErrors((prev) => ({ ...prev, [field]: undefined }));
     setSaved(false);
   };
 
-  /* Dispatches structural updates to specific indices inside the multi-link nested array wrapper */
+  /* Updates a specific item inside the links array by its index */
   const handleLinkChange = (idx, field, value) => {
     const updated = form.links.map((l, i) => (i === idx ? { ...l, [field]: value } : l));
     setForm((prev) => ({ ...prev, links: updated }));
     setSaved(false);
   };
 
-  /* Appends an uninitialized structural hyperlink template node into the form collection array */
+  /* Adds a new empty link object to the form state */
   const addLink = () => setForm((prev) => ({ ...prev, links: [...prev.links, { ...EMPTY_LINK }] }));
   
-  /* Evicts a targeted hyperlink record from the collection matrix via transactional index filtering */
+  /* Removes a link object from the form state by its index */
   const removeLink = (idx) => setForm((prev) => ({ ...prev, links: prev.links.filter((_, i) => i !== idx) }));
 
-  /* Evaluates dataset integrity via centralized rules engines before committing mutations to global context boundaries */
+  /* Validates the form data and saves it to the global CV context if there are no errors */
   const handleSubmit = () => {
     const e = validatePersonalForm(form);
     if (Object.keys(e).length) { setErrors(e); return; }
@@ -57,4 +57,42 @@ export function usePersonalHook() {
   };
 
   return { form, errors, saved, handleChange, handleLinkChange, addLink, removeLink, handleSubmit };
+}
+
+/* Manages form state, validation, and submission for projects */
+export function useProjectHook(editTarget, EMPTY, onDone) {
+  const { addProject, updateProject, cv } = useCV();
+  
+  // Saves the project form data draft in local storage to prevent data loss
+  const [storedData, setStoredData] = useLocalStorage(LOCAL_STORAGE_KEYS.PROJECTS_DRAFT, editTarget || EMPTY);
+  const [form, setForm] = useState(storedData);
+  const [errors, setErrors] = useState({});
+
+  // Syncs project form state changes to local storage
+  useEffect(() => {
+    setStoredData(form);
+  }, [form, setStoredData]);
+
+  /* Changes a project field value and clears its validation error */
+  const handleChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    setErrors((prev) => ({ ...prev, [field]: undefined }));
+  };
+
+  /* Validates the project data and updates an existing project or adds a new one */
+  const handleSubmit = () => {
+    const e = validateProjectForm(form, editTarget, cv.projects);
+    if (Object.keys(e).length) { setErrors(e); return; }
+    
+    if (editTarget) updateProject(editTarget.id, form);
+    else addProject(form);
+    
+    const resetValue = EMPTY;
+    setForm(resetValue);
+    setStoredData(resetValue);
+    setErrors({});
+    if (onDone) onDone();
+  };
+
+  return { form, errors, handleChange, handleSubmit };
 }
