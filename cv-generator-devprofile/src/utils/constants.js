@@ -86,3 +86,27 @@ export const EMPTY_PROJECT = {
   deployUrl: '',
   image: '',
 };
+
+/* Skill Form Constants */
+
+/* Static array collection to populate the skill category dropdown menu */
+export const CATEGORIES = [
+  'Programming', 
+  'Databases', 
+  'Web Design', 
+  'Languages', 
+  'Dev Tools', 
+  'Soft Skills', 
+  'Other'
+];
+
+/* Proficiency level classifications for the custom button group selection */
+export const LEVELS = ['Basic', 'Intermediate', 'Advanced', 'Expert'];
+
+/* Initial empty structure used to reset skill form fields to baseline defaults */
+export const EMPTY_SKILL = { 
+  name: '', 
+  category: 'Programming', 
+  level: 'Intermediate', 
+  description: '' 
+};

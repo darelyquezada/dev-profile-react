@@ -15,6 +15,21 @@ export const validatePersonalForm = (form) => {
   return e;
 };
 
+export const validateSkillForm = (form, editTarget, existingSkills) => {
+  const e = {};
+  if (!form.name.trim()) e.name = 'Skill name is required';
+  if (form.name.length > 60) e.name = 'Name must be under 60 characters';
+  
+  if (!editTarget) {
+    const dup = existingSkills.some((s) => s.name.trim().toLowerCase() === form.name.trim().toLowerCase());
+    if (dup) e.name = 'This skill already exists';
+  }
+  
+  if (!form.description.trim()) e.description = 'Add a brief description';
+  if (form.description.length > 200) e.description = 'Description must be under 200 characters';
+  return e;
+};
+
 export const validateProjectForm = (form, editTarget, existingProjects) => {
   const e = {};
   if (!form.name.trim()) e.name = 'Project name is required';
