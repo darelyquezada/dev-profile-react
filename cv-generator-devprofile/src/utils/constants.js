@@ -110,3 +110,16 @@ export const EMPTY_SKILL = {
   level: 'Intermediate', 
   description: '' 
 };
+
+/* Skill Form Constants */
+
+/* Color mapping matrix linked directly to specific skill categories */
+export const CATEGORY_COLORS = {
+  Programming: '#c8ff00',
+  Databases:   '#00d4ff',
+  'Web Design': '#ff6b35',
+  Languages:    '#b388ff',
+  'Dev Tools':  '#69ff47',
+  'Soft Skills': '#ffd166',
+  Other:        '#888888',
+};
