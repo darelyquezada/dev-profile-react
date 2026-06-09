@@ -111,7 +111,7 @@ export const EMPTY_SKILL = {
   description: '' 
 };
 
-/* Skill Form Constants */
+/* Skill Form and Skill Card Constants */
 
 /* Color mapping matrix linked directly to specific skill categories */
 export const CATEGORY_COLORS = {
