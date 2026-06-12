@@ -87,6 +87,12 @@ export const EMPTY_PROJECT = {
   image: '',
 };
 
+// Image source type options for the project form image field
+export const IMAGE_TABS = Object.freeze([
+  { id: 'url',    label: 'URL'    },
+  { id: 'upload', label: 'Upload' },
+]);
+
 /* Skill Form Constants */
 
 /* Static array collection to populate the skill category dropdown menu */

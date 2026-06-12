@@ -1,5 +1,6 @@
 // Global regular expression to enforce uniform URL schemas across forms
 export const URL_REGEX = /^https?:\/\/.+/;
+export const IMAGE_SOURCE_REGEX = /^(https?:\/\/.+|data:image\/[a-zA-Z]+;base64,[A-Za-z0-9+/=]+)$/;
 
 /*
  Validates the personal data section including nested social/professional links.
@@ -94,8 +95,8 @@ export const validateProjectForm = (form, editTarget, existingProjects) => {
   if (form.deployUrl && !URL_REGEX.test(form.deployUrl)) {
     e.deployUrl = 'Must be a valid URL (https://...)';
   }
-  if (form.image && !URL_REGEX.test(form.image)) {
-    e.image = 'Must be a valid URL (https://...)';
+  if (form.image && !IMAGE_SOURCE_REGEX.test(form.image)) {
+    e.image = 'Must be a valid URL (https://...) or an uploaded image';
   }
   
   return e;
