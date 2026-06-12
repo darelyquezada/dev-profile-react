@@ -123,3 +123,39 @@ export const CATEGORY_COLORS = {
   'Soft Skills': '#ffd166',
   Other:        '#888888',
 };
+
+/* --- ExtraInfo Form Constants --- */
+
+export const EMPTY_EXP = Object.freeze({ 
+  title: '', 
+  company: '', 
+  period: '', 
+  description: '', 
+  tools: '' 
+});
+
+export const EMPTY_LANG = Object.freeze({ 
+  language: '', 
+  level: 'B1 – Intermediate', 
+  notes: '' 
+});
+
+export const LANG_LEVELS = Object.freeze([
+  'A1 – Beginner', 
+  'A2 – Elementary', 
+  'B1 – Intermediate', 
+  'B2 – Upper-Intermediate', 
+  'C1 – Advanced', 
+  'C2 – Proficient', 
+  'Native'
+]);
+
+/* --- Education Form Constants --- */
+
+export const EMPTY_EDUCATION = Object.freeze({
+  institution: '',
+  program: '',
+  period: '',
+  description: '',
+  evidenceUrl: '',
+});
