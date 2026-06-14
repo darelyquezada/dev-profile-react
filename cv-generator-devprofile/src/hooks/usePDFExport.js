@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 import { exportToPDF } from '../utils/pdfGenerator';
 
 export function usePDFExport() {

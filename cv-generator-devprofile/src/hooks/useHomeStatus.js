@@ -1,4 +1,4 @@
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 
 /*
  Custom hook to abstract and compute CV state metrics for the Home dashboard view.

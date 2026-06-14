@@ -1,4 +1,4 @@
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 import { LEVEL_VALUES, CATEGORY_COLORS } from '../utils/constants';
 import { getSortedSkills, calculateDonutSlices, getRadarCoordinates } from '../utils/chartMath';
 

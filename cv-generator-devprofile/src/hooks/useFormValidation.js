@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 import { useLocalStorage } from './useLocalStorage';
 import { LOCAL_STORAGE_KEYS, LEVEL_VALUES } from '../utils/constants';
 import { 
@@ -73,6 +73,14 @@ export function useSkillHook(editTarget, EMPTY, onDone) {
     setStoredData(form);
   }, [form, setStoredData]);
 
+  // If an edit target is provided (or changes), load it into the form
+  useEffect(() => {
+    if (editTarget) {
+      setForm(editTarget);
+      setStoredData(editTarget);
+    }
+  }, [editTarget, setStoredData]);
+
   /* Changes a skill field value and clears its validation error */
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -114,6 +122,14 @@ export function useProjectHook(editTarget, EMPTY, onDone) {
   useEffect(() => {
     setStoredData(form);
   }, [form, setStoredData]);
+
+  // If an edit target is provided (or changes), load it into the form
+  useEffect(() => {
+    if (editTarget) {
+      setForm(editTarget);
+      setStoredData(editTarget);
+    }
+  }, [editTarget, setStoredData]);
 
   /* Changes a project field value and clears its validation error */
   const handleChange = (field, value) => {

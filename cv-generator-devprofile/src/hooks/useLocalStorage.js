@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 
 export function useLocalStorage(key, initialValue) {
   
-  // 1. Initialize state with a lazy initializer function to avoid redundant disk reads
+  // Initialize state with a lazy initializer function to avoid redundant disk reads
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
@@ -15,21 +15,24 @@ export function useLocalStorage(key, initialValue) {
     }
   });
 
-  // 2. Wrap the setter function in useCallback to maintain reference integrity across re-renders
+  // Wrap the setter function in useCallback to maintain reference integrity across re-renders
+  // Use the functional updater form of setState to avoid stale closures when callers
+  // provide an updater function (prev => next).
   const setValue = useCallback((value) => {
     try {
-      // Support functional state updates (e.g., setValue(prev => ...)) just like standard useState
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      
-      // Update the internal operational React state loop
-      setStoredValue(valueToStore);
-      
-      // Serialize and commit the new state data structure directly to disk storage
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      setStoredValue((prev) => {
+        const valueToStore = value instanceof Function ? value(prev) : value;
+        try {
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        } catch (err) {
+          console.error(`[useLocalStorage] Error writing key "${key}" to localStorage:`, err);
+        }
+        return valueToStore;
+      });
     } catch (error) {
       console.error(`[useLocalStorage] Error setting key "${key}":`, error);
     }
-  }, [key, storedValue]);
+  }, [key]);
 
   return [storedValue, setValue];
 }

@@ -1,4 +1,4 @@
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 import { useEditorTabs } from '../hooks/useEditorTabs';
 import { EDITOR_TABS } from '../utils/constants';
 import PersonalForm from '../components/PersonalForm';

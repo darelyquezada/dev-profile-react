@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 
 /* 
  Custom hook to manage the edit state and delete actions for a project card.

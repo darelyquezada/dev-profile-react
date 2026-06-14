@@ -12,9 +12,11 @@ export default function CVPreview() {
     projects,
     education,
     extra,
+    experienceItems,
+    languageItems,
     hasExperience,
     hasLanguages,
-    isEmpty
+    isEmpty,
   } = useCVPreview();
 
   if (isEmpty) return <EmptyState />;
@@ -104,7 +106,7 @@ export default function CVPreview() {
         {hasExperience && (
           <Section title="Experience">
             <Card>
-              {extra.items.map((item) => {
+              {experienceItems.map((item) => {
                 const tools = splitTags(item.tools); // Uso de la función utilitaria
                 return (
                   <div key={item.id} className="cv-experience-item">
@@ -162,7 +164,7 @@ export default function CVPreview() {
               <div>
                 <SectionLabel>Languages</SectionLabel>
                 <Card>
-                  {extra.items.map((item) => (
+                  {languageItems.map((item) => (
                     <Bullet key={item.id}>
                       <strong>{item.language}</strong>
                       {item.level ? ` - ${item.level}` : ''}

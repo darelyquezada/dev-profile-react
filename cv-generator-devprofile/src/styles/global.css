@@ -36,7 +36,7 @@
 
 /* Light mode unificado (Mantiene los acentos vivos del primer archivo) */
 [data-theme="light"] {
-  --bg:           #f5f5f0;
+  --bg:           #f5f0f0;
   --bg-secondary: #eeeeea;
   --bg-card:      #ffffff;
   --bg-hover:     #e8e8e4;

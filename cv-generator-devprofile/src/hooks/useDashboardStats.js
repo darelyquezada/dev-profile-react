@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 import { LEVEL_VALUES } from '../utils/constants';
 
 export function useDashboardStats() {

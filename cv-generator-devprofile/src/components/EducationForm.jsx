@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 import { EMPTY_EDUCATION } from '../utils/constants';
 import { validateEducationForm } from '../utils/validations';
 

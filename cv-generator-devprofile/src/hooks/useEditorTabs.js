@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useLocalStorage } from './useLocalStorage';
 
 /*
  Custom hook managing the user interface workflow transitions for the CV Editor.
@@ -6,7 +7,7 @@ import { useState, useCallback } from 'react';
 */
 export function useEditorTabs() {
   // Sets the 'personal' module as the core initialization landmark for the workspace router
-  const [activeTab, setActiveTabInternal] = useState('personal');
+  const [activeTab, setActiveTabInternal] = useLocalStorage('editor-active-tab', 'personal');
   
   // Toggles the insertion/modification form interface for professional skills records
   const [showSkillForm, setShowSkillForm] = useState(false);

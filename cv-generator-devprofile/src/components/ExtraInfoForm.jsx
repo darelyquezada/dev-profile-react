@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCV } from '../context/CVContext'; 
+import { useCV, CVContext } from '../context/CVContext'; 
 import { EMPTY_EXP, EMPTY_LANG, LANG_LEVELS } from '../utils/constants';
 import { validateExtraInfoForm } from '../utils/validations'; 
 import { splitTags } from '../utils/formatters';
@@ -113,8 +113,9 @@ export default function ExtraInfoForm() {
       return; 
     }
     
-    if (editId) updateExtra(editId, form);
-    else addExtra(form);
+    const payload = { ...form, kind: type };
+    if (editId) updateExtra(editId, payload);
+    else addExtra(payload);
     
     setForm(type === 'experience' ? EMPTY_EXP : EMPTY_LANG);
     setErrors({});
@@ -172,10 +173,10 @@ export default function ExtraInfoForm() {
       )}
 
       {type === 'experience'
-        ? cv.extra.items.map((item) => (
+        ? cv.extra.items.filter((it) => it.kind === 'experience' || (it.kind === undefined && Boolean(it.title))).map((item) => (
             <ExperienceItem key={item.id} item={item} onEdit={startEdit} onDelete={deleteExtra} />
           ))
-        : cv.extra.items.map((item) => (
+        : cv.extra.items.filter((it) => it.kind === 'languages' || (it.kind === undefined && Boolean(it.language))).map((item) => (
             <LanguageItem key={item.id} item={item} onEdit={startEdit} onDelete={deleteExtra} />
           ))}
 

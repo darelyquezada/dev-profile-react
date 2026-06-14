@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCV } from '../context/CVContext';
+import { useCV, CVContext } from '../context/CVContext';
 import { PRESET_AVATARS, TAB_META } from '../utils/constants';
 import UrlTab from './UrlTab';
 import UploadTab from './UploadTab';
