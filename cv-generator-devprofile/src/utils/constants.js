@@ -1,3 +1,13 @@
+import bearImg from '../assets/bear.png';
+import catImg from '../assets/cat.png';
+import dogImg from '../assets/dog.png';
+import duckImg from '../assets/duck.png';
+import giraffeImg from '../assets/giraffe.png';
+import pandaImg from '../assets/panda.png';
+import penguinImg from '../assets/penguin.png';
+import rabbitImg from '../assets/rabbit.png';
+import seaLionImg from '../assets/sea-lion.png';
+
 /* Navbar Constants */
 
 /*
@@ -51,6 +61,7 @@ export const EDITOR_TABS = [
   { id: 'projects', label: 'Projects', index: '03' },
   { id: 'education', label: 'Education', index: '04' },
   { id: 'extra', label: 'Experience', index: '05' },
+  { id: 'avatar', label: 'Avatar', index: '06' },
 ];
 
 /* useFormValidation Constants */
@@ -165,3 +176,23 @@ export const EMPTY_EDUCATION = Object.freeze({
   description: '',
   evidenceUrl: '',
 });
+
+/* Avatar Form Constants */
+
+export const PRESET_AVATARS = Object.freeze([
+  { id: 'a1',  label: 'Bear',     url: bearImg },
+  { id: 'a2',  label: 'Cat',      url: catImg },
+  { id: 'a3',  label: 'Dog',      url: dogImg },
+  { id: 'a4',  label: 'Duck',     url: duckImg },
+  { id: 'a5',  label: 'Giraffe',  url: giraffeImg },
+  { id: 'a6',  label: 'Panda',    url: pandaImg },
+  { id: 'a7',  label: 'Penguin',  url: penguinImg },
+  { id: 'a8',  label: 'Rabbit',   url: rabbitImg },
+  { id: 'a9',  label: 'Sea Lion', url: seaLionImg },
+]);
+
+export const TAB_META = Object.freeze([
+  { id: 'url', label: 'URL' },
+  { id: 'upload', label: 'Upload' },
+  { id: 'presets', label: 'Presets' }
+]);

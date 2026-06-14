@@ -1,4 +1,3 @@
-// src/pages/Editor.jsx
 import { useCV } from '../context/CVContext';
 import { useEditorTabs } from '../hooks/useEditorTabs';
 import { EDITOR_TABS } from '../utils/constants';
@@ -9,6 +8,7 @@ import ProjectForm from '../components/ProjectForm';
 import ProjectCard from '../components/ProjectCard';
 import EducationForm from '../components/EducationForm';
 import ExtraInfoForm from '../components/ExtraInfoForm';
+import AvatarForm from '../components/AvatarForm';
 import { useNavigate } from 'react-router-dom'; 
 
 export default function Editor() {
@@ -143,6 +143,9 @@ export default function Editor() {
 
           {/* Extra Info / Professional Experience Module */}
           {activeTab === 'extra' && <ExtraInfoForm />}
+          
+          {/* Avatar Image Module */}
+          {activeTab === 'avatar' && <AvatarForm />}
           
         </div>
 

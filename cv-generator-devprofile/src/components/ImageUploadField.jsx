@@ -1,51 +1,24 @@
-import { useState, useRef, useCallback } from 'react';
-import { URL_REGEX } from '../utils/validations';
+import { useUploadTab } from '../hooks/useUploadTab';
 
 export default function ImageUploadField({ value, onChange }) {
-  const [dragging, setDragging] = useState(false);
-  const [error, setError]       = useState('');
-  const inputRef                = useRef(null);
-
-  // Validates file signatures and serializes buffer streams to local storage string formats
-  const processFile = useCallback((file) => {
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      setError('File must be an image (PNG, JPG, WEBP, etc.)');
-      return;
-    }
-
-    // Limit maximum allocation constraints to 4MB
-    if (file.size > 4 * 1024 * 1024) {
-      setError('Image must be smaller than 4 MB');
-      return;
-    }
-
-    setError('');
-    const reader = new FileReader();
-    reader.onload = (e) => onChange(e.target.result);
-    reader.readAsDataURL(file);
-  }, [onChange]);
-
-  // Captures and drops local system elements onto the virtual viewport area
-  const handleDrop = useCallback((e) => {
-    e.preventDefault();
-    setDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    processFile(file);
-  }, [processFile]);
-
-  const handleDragOver  = (e) => { e.preventDefault(); setDragging(true); };
-  const handleDragLeave = ()  => setDragging(false);
-  const handleInput     = (e) => processFile(e.target.files?.[0]);
-  const handleClear     = ()  => { onChange(''); setError(''); };
-
-  const hasImage = value && (value.startsWith('data:') || URL_REGEX.test(value));
+  const {
+    dragging,
+    error,
+    inputRef,
+    hasImage,
+    handleDrop,
+    handleDragOver,
+    handleDragLeave,
+    handleInput,
+    triggerBrowse,
+    triggerReplace,
+    triggerRemove,
+  } = useUploadTab(value, onChange);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
       <div
-        onClick={() => !hasImage && inputRef.current?.click()}
+        onClick={triggerBrowse}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -72,7 +45,7 @@ export default function ImageUploadField({ value, onChange }) {
               style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', display: 'block' }}
             />
             <button
-              onClick={(e) => { e.stopPropagation(); handleClear(); }}
+              onClick={triggerRemove}
               title="Remove image"
               style={{
                 position: 'absolute', top: '0.5rem', right: '0.5rem',
@@ -90,7 +63,7 @@ export default function ImageUploadField({ value, onChange }) {
               </svg>
             </button>
             <button
-              onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
+              onClick={triggerReplace}
               title="Replace image"
               style={{
                 position: 'absolute', bottom: '0.5rem', right: '0.5rem',
