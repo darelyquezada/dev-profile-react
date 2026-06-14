@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { useCV } from '../context/CVContext'; 
 import { EMPTY_EXP, EMPTY_LANG, LANG_LEVELS } from '../utils/constants';
 import { validateExtraInfoForm } from '../utils/validations'; 
+import { splitTags } from '../utils/formatters';
 
 /* ── Single row display for Experience ── */
 function ExperienceItem({ item, onEdit, onDelete }) {
-  const tools = item.tools ? item.tools.split(',').map((t) => t.trim()).filter(Boolean) : [];
+  // Se reemplaza la división y filtrado manual por el uso directo de splitTags
+  const tools = splitTags(item.tools);
+  
   return (
     <div className="card card-accent" style={{ marginBottom: '0.85rem' }}>
       <div className="flex-between" style={{ marginBottom: '0.4rem' }}>

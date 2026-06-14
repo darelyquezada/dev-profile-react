@@ -1,5 +1,5 @@
 import { useProjectCard } from '../hooks/useProjectCard';
-import { parseTechnologies } from '../utils/formatters';
+import { splitTags } from '../utils/formatters';
 import ProjectForm from './ProjectForm';
 
 export default function ProjectCard({ project }) {
@@ -7,7 +7,7 @@ export default function ProjectCard({ project }) {
   const { editing, handleStartEdit, handleStopEdit, handleDelete } = useProjectCard(project.id);
 
   // Computing operational tag collections from static strings through pure side-effect-free utils
-  const techList = parseTechnologies(project.technologies);
+  const techList = splitTags(project.technologies);
 
   // Render optimization branch: Short-circuits directly into a structural form modifying the current entity
   if (editing) {
