@@ -11,7 +11,7 @@ import './styles/global.css';
 export default function App() {
   return (
     <CVProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/dev-profile-react/">
         <Navbar />
         <Routes>
           <Route path="/"          element={<Home />}      />
