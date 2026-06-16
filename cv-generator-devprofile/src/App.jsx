@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { CVProvider } from './context/CVContext';
 import Navbar    from './components/Navbar';
 import Home      from './pages/Home';
@@ -11,7 +11,7 @@ import './styles/global.css';
 export default function App() {
   return (
     <CVProvider>
-      <BrowserRouter basename="/dev-profile-react/">
+      <HashRouter>
         <Navbar />
         <Routes>
           <Route path="/"          element={<Home />}      />
@@ -20,7 +20,7 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about"     element={<About />}     />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </CVProvider>
   );
 }
