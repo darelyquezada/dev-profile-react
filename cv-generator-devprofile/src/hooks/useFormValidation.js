@@ -74,12 +74,16 @@ export function useSkillHook(editTarget, EMPTY, onDone) {
   }, [form, setStoredData]);
 
   // If an edit target is provided (or changes), load it into the form
+  // When creating a new skill (editTarget is falsy), always reset to empty
   useEffect(() => {
     if (editTarget) {
       setForm(editTarget);
       setStoredData(editTarget);
+    } else {
+      setForm(EMPTY);
+      setStoredData(EMPTY);
     }
-  }, [editTarget, setStoredData]);
+  }, [editTarget, EMPTY, setStoredData]);
 
   /* Changes a skill field value and clears its validation error */
   const handleChange = (field, value) => {
@@ -124,12 +128,16 @@ export function useProjectHook(editTarget, EMPTY, onDone) {
   }, [form, setStoredData]);
 
   // If an edit target is provided (or changes), load it into the form
+  // When creating a new project (editTarget is falsy), always reset to empty
   useEffect(() => {
     if (editTarget) {
       setForm(editTarget);
       setStoredData(editTarget);
+    } else {
+      setForm(EMPTY);
+      setStoredData(EMPTY);
     }
-  }, [editTarget, setStoredData]);
+  }, [editTarget, EMPTY, setStoredData]);
 
   /* Changes a project field value and clears its validation error */
   const handleChange = (field, value) => {
