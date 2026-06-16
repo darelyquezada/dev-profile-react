@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/dev-profile-react/',
   plugins: [react()],
+  base: '/dev-profile-react/',
+  build: {
+    chunkSizeWarningLimit: 1200, 
+  },
 })
