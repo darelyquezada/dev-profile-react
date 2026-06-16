@@ -59,6 +59,34 @@ export async function exportToPDF(userName) {
     // Single-render operation (No loops, no pdf.addPage())
     pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgWidth, imgHeight);
 
+    // Extract links from the DOM and add them to the PDF
+    const links = element.querySelectorAll('a');
+    const elementRect = element.getBoundingClientRect();
+    
+    // The scaling factor from the DOM element size to the image size in the PDF
+    const scaleX = imgWidth / elementRect.width;
+    const scaleY = imgHeight / elementRect.height;
+
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+      const linkRect = link.getBoundingClientRect();
+      
+      // Calculate coordinates relative to the container element
+      const relativeX = linkRect.left - elementRect.left;
+      const relativeY = linkRect.top - elementRect.top;
+
+      // Convert to PDF coordinates
+      const pdfX = offsetX + (relativeX * scaleX);
+      const pdfY = offsetY + (relativeY * scaleY);
+      const pdfWidth = linkRect.width * scaleX;
+      const pdfHeight = linkRect.height * scaleY;
+
+      // Add clickable area on the PDF
+      pdf.link(pdfX, pdfY, pdfWidth, pdfHeight, { url: href });
+    });
+
     // Stream download trigger
     pdf.save(fileName);
 
